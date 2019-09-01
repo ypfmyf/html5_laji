@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>授权登录</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<meta name="MobileOptimized" content="320" />
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+ 
+<link href="css/common.css" rel="stylesheet"/>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+</head>
+<body>
+<div></div>
+
+
+
+<script>
+    function getParam(url, name) {
+    try {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = url.split('?')[1].match(reg);
+        if(r != null) {
+          return r[2];
+        }
+        return "";//如果此处只写return;则返回的是undefined
+    } catch(e) {
+        return "";//如果此处只写return;则返回的是undefined
+    }
+};
+//调用
+//情况一:url包含该参数
+var url=window.location.href;
+var openid="openid";
+var openid=getParam(url,openid);
+
+
+
+var appID = "wxc66e198e800e067d"; // 公众号AppID
+var redirectUri = "https://www.huijienongye.com/index.php/api/wechat/callback"; // 授权接口地址
+var state = "1"; // 状态标识（用于项目拓展）
+// var openid='';
+console.log(openid);
+if(openid == null || openid == undefined || openid == ''){ // 通过判断地址参数是否有openid来确定是否要跳转授权
+        var strUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appID + "&redirect_uri=" + redirectUri + "&response_type=code&scope=snsapi_userinfo&state=" + state + "#wechat_redirect";
+        window.location.href = strUrl;
+}else{
+     window.location.href ='https://www.huijienongye.com/html5/index.html?openid='+openid;
+}
+
+
+</script>
+</body>
+</html>
